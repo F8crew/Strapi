@@ -1,0 +1,14 @@
+{
+  "name": "strapi-project",
+  "version": "1.0.0",
+  "description": "A project to fetch news from Strapi",
+  "main": "Index.js",
+  "scripts": {
+    "start": "live-server ."
+  },
+  "dependencies": {
+    "live-server": "^1.2.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
