@@ -3,19 +3,28 @@ const API_KEY = '4c9f869b9d3a2c03992f1c5b89c223ea4c6cea2f1fcb09302074c4f905aeaf4
 
 async function fetchList(contentType) {
     console.log(`fetchList for ${contentType}`);
-    const resp = await fetch(API_URL + `/api/${contentType}?populate=*`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + API_KEY
+    try {
+        const resp = await fetch(API_URL + `/api/${contentType}?populate=*`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + API_KEY
+            }
+        });
+        
+        if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
         }
-    });
-    const response = await resp.json();
-    for (let doc of response.data) {
-        if (contentType === 'nyheter') {
-            await showDocument(doc);
-        } else if (contentType === 'dikts') {
-            await showDikts(doc);
+
+        const response = await resp.json();
+        for (let doc of response.data) {
+            if (contentType === 'nyheter') {
+                await showDocument(doc);
+            } else if (contentType === 'dikts') {
+                await showDikts(doc);
+            }
         }
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
 }
 
